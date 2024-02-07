@@ -69,22 +69,26 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
-          <h2>Put Your Phone Number Here</h2>
+          <h2>Put Your Message Here</h2>
           <div class="form-group">
-            <label for="phone_num">Phone Number</label>
-            <input type="number" class="form-control" id="phone_num" aria-describedby="emailHelp" placeholder="2038364607">
-            <small id="emailHelp" class="form-text text-muted" style="color: white;">Just put the numebrs in, do not add +1 to the front</small>
-            <button type="button" class="btn-get-started" onclick="phoneVerification()">Send Verification Text</button>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1"></label>
+              <textarea class="form-control" id="text-body" rows="3" placeholder="Fuck Mike Conron"></textarea>
+            </div>
+            <!-- <label for="phone_num"></label>
+            <input type="text" class="form-control" id="phone_num" aria-describedby="emailHelp" placeholder="Fuck Mike Conron">
+            <small id="emailHelp" class="form-text text-muted" style="color: white;"></small> -->
+            <button type="button" class="btn-get-started" onclick="sendText()">Send Text</button>
 
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="verifiation_code">Verifcation Code</label>
             <input type="number" class="form-control" id="verification_code" aria-describedby="emailHelp" placeholder="0894">
             <small id="emailHelp" class="form-text text-muted" style="color: white;"></small>
             <button type="button" class="btn-get-started" onclick = "codeVerification()">Verify Number</button>
 
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -147,7 +151,20 @@
 
     <script>
       var phone_number = document.getElementById('phone_num').value;
-
+      function sendText() {
+        var text_body = document.getElementById('text-body').value
+        $.ajax({
+                  url: '/sendText',
+                  type: 'POST',
+                  data: {'body': text_body},
+                  success: function(response) {
+                    console.log("Success"); 
+                  },
+                  error: function(error) {
+                      console.log(error);
+                  }
+              });
+      }
       function codeVerification() {
         var phone_number = document.getElementById('phone_num').value;
 
