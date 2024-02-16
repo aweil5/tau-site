@@ -58,7 +58,7 @@ def sendText():
         print(message.sid)
 
 
-    return "Success"
+#     return "Success"
 
 
 if __name__ == "__main__":
