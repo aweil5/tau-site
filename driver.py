@@ -1,14 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests
+import pandas as pd
+from twilio.rest import Client
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__, static_folder='templates/assets')
+
+# Loading Twilio Details
+load_dotenv(".env")
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
+
+client = Client(account_sid, auth_token)
+toll_free_num = os.getenv('from-number')
+
+#Loading in all nums on Startup
+df = pd.read_csv("Test Spam - Sheet1.csv")
+
+
 
 # Route for handling the login page logic
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    password = os.getenv("site_password")
     error = None
     if request.method == 'POST':
-        if request.form['password'] != 'monique':
+        if request.form['password'] != password:
             error = 'Invalid Credentials. Please try again.'
         else:
             return redirect(url_for('home'))
@@ -19,80 +37,25 @@ def login():
 def home():
     return render_template("index.html")
 
-@app.route('/codeVerifcation', methods = ['POST'])
-def codeVerification():
+
+@app.route('/sendText', methods=['POST'])
+def sendText():
     country_code = "+1"
-    number = request.form.get("phone_number")
-
-    # The number that will receive the SMS. Test accounts are limited to verified numbers.
-    # The number must be in E.164 Format, e.g. Netherlands 0639111222 -> +31639111222
-    toNumber = country_code + str(number)
+    text_body = str(request.form.get("text_body"))
 
 
-    #The verification code
-    code = request.form.get("code")
-    code = str(code)
+    print(df)
+    for index, row in df.iterrows():
+        number = "+1" + str(row['Number'])
 
-    # The key from one of your Verification Apps, found here https://dashboard.sinch.com/verification/apps
-    applicationKey = "dbb2e813-9522-4d05-b20d-8351515678fc"
+        message = client.messages \
+                    .create(
+                        body=str(text_body),
+                        from_= toll_free_num,
+                        to=number
+                    )
 
-    # The secret from the Verification App that uses the key above, found here https://dashboard.sinch.com/verification/apps
-    applicationSecret = "dD2b/usNQ06WhvT73ZYCKA=="
-
-
-
-    sinchVerificationUrl = "https://verification.api.sinch.com/verification/v1/verifications/number/" + toNumber
-
-    payload = {
-        "method": "sms",
-        "sms": {
-            "code": code
-        }
-    }
-
-    headers = {"Content-Type": "application/json"}
-
-    response = requests.put(sinchVerificationUrl, json=payload, headers=headers, auth=(applicationKey, applicationSecret))
-
-    data = response.json()
-    print(data)
-    return "success"
-
-@app.route('/phoneVerification', methods=['POST'])
-def phoneVerification():
-    country_code = "+1"
-    number = request.form.get("phone_number")
-
-    print(number)
-
-
-    # The number that will receive the SMS. Test accounts are limited to verified numbers.
-    # The number must be in E.164 Format, e.g. Netherlands 0639111222 -> +31639111222
-    toNumber = (country_code + str(number))
-
-    # The key from one of your Verification Apps, found here https://dashboard.sinch.com/verification/apps
-    applicationKey = "dbb2e813-9522-4d05-b20d-8351515678fc"
-
-    # The secret from the Verification App that uses the key above, found here https://dashboard.sinch.com/verification/apps
-    applicationSecret = "dD2b/usNQ06WhvT73ZYCKA=="
-
-    
-    sinchVerificationUrl = "https://verification.api.sinch.com/verification/v1/verifications"
-
-    payload = {
-        "identity": {
-            "type": "number",
-            "endpoint": toNumber
-        },
-        "method": "sms"
-    }
-
-    headers = {"Content-Type": "application/json"}
-
-    response = requests.post(sinchVerificationUrl, json=payload, headers=headers, auth=(applicationKey, applicationSecret))
-
-    data = response.json()
-    print(data)
+        print(message.sid)
 
 
     return "Success"

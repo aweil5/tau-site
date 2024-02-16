@@ -69,22 +69,23 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
-          <h2>Put Your Phone Number Here</h2>
+          <h2>Put Your Text Here</h2>
           <div class="form-group">
-            <label for="phone_num">Phone Number</label>
-            <input type="number" class="form-control" id="phone_num" aria-describedby="emailHelp" placeholder="2038364607">
-            <small id="emailHelp" class="form-text text-muted" style="color: white;">Just put the numebrs in, do not add +1 to the front</small>
-            <button type="button" class="btn-get-started" onclick="phoneVerification()">Send Verification Text</button>
-
+            <!-- <input type="text-box" class="form-control" id="phone_text" aria-describedby="emailHelp" placeholder="Fuck Mike Conron"> -->
+            <textarea class="form-control" id="text-body-string" rows="3" placeholder="Fuck Mike Conron"></textarea>
+            <button type="button" class="btn-get-started" onclick="sendText()">Send  Text</button>
+            <div id="text-success" class="hideOnStart">
+              <p style="color: greenyellow;">Zag: Text Sent!</p>
+          </div>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="verifiation_code">Verifcation Code</label>
             <input type="number" class="form-control" id="verification_code" aria-describedby="emailHelp" placeholder="0894">
             <small id="emailHelp" class="form-text text-muted" style="color: white;"></small>
             <button type="button" class="btn-get-started" onclick = "codeVerification()">Verify Number</button>
 
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -120,8 +121,8 @@
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-        Created by Andrew Weil<br>
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Zag<br>
+        Designed by <a href="https://i1.sndcdn.com/avatars-FOAcEGlij0GetuTn-dxZpWA-t500x500.jpg">Monique</a>
       </div>
     </div>
   </footer><!-- End Footer -->
@@ -146,35 +147,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-      var phone_number = document.getElementById('phone_num').value;
+      function sendText() {
+        var text_body = document.getElementById('text-body-string').value;
 
-      function codeVerification() {
-        var phone_number = document.getElementById('phone_num').value;
+        if(text_body = null){
 
-        var code = document.getElementById('verification_code').value;
-
-        $.ajax({
-                  url: '/codeVerifcation',
-                  type: 'POST',
-                  data: { 'code': code, 'phone_number':phone_number},
-                  success: function(response) {
-                    console.log("Success"); 
-                  },
-                  error: function(error) {
-                      console.log(error);
-                  }
-              });
-      }
-
-      function phoneVerification() {
-        var phone_number = document.getElementById('phone_num').value;
+        }
 
               $.ajax({
-                  url: '/phoneVerification',
+                  url: '/sendText',
                   type: 'POST',
-                  data: {'phone_number': phone_number},
+                  data: {'text_body': text_body},
                   success: function(response) {
                     console.log("Success"); 
+                    document.getElementById('text-success').innerHTML = "Text Sent Successfully";
+                    var s = document.getElementById("text-success").style;
+                    s.animationName = 'showAndHide';
+                    s.animationDuration = '3s';
                   },
                   error: function(error) {
                       console.log(error);
