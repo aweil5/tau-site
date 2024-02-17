@@ -1,1 +1,1 @@
-web: gunicorn tau-site:app
+web: gunicorn app:app
