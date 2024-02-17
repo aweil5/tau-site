@@ -1,1 +1,1 @@
-web gunicorn risk-site:app
+web: python driver.py
