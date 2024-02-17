@@ -80,14 +80,14 @@
           </div>
 
           <!-- <div class="form-group">
-          <!-- <div class="form-group">
+           <div class="form-group">
             <label for="verifiation_code">Verifcation Code</label>
             <input type="number" class="form-control" id="verification_code" aria-describedby="emailHelp" placeholder="0894">
             <small id="emailHelp" class="form-text text-muted" style="color: white;"></small>
             <button type="button" class="btn-get-started" onclick = "codeVerification()">Verify Number</button>
 
           </div> -->
-          </div> -->
+          </div> 
         </div>
       </div>
     </div>
@@ -151,15 +151,13 @@
     <script>
       function sendText() {
         var text_body = document.getElementById('text-body-string').value;
+        console.log(text_body)
 
-        if(text_body = null){
-
-        }
 
               $.ajax({
                   url: '/sendText',
                   type: 'POST',
-                  data: {'text_body': text_body},
+                  data: {"text_body": text_body},
                   success: function(response) {
                     console.log("Success"); 
                     document.getElementById('text-success').innerHTML = "Text Sent Successfully";

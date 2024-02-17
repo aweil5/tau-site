@@ -12,11 +12,13 @@ load_dotenv(".env")
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
 
+
 client = Client(account_sid, auth_token)
 toll_free_num = os.getenv('from-number')
 
 #Loading in all nums on Startup
-df = pd.read_csv("Test Spam - Sheet1.csv")
+df = pd.read_csv("YoungerPC's - Sheet1.csv")
+df.fillna(0)
 
 
 
@@ -40,22 +42,23 @@ def home():
 
 @app.route('/sendText', methods=['POST'])
 def sendText():
-    country_code = "+1"
-    text_body = str(request.form.get("text_body"))
+    text_body = request.form.get("text_body")
 
-
-    print(df)
+    print(text_body)
     for index, row in df.iterrows():
-        number = "+1" + str(row['Number'])
+        
+        number = "+1" + str(int(row['Number']))
+        if(number != "+1"):
 
-        message = client.messages \
-                    .create(
-                        body=str(text_body),
-                        from_= toll_free_num,
-                        to=number
-                    )
+            message = client.messages \
+                        .create(
+                            body=str(text_body),
+                            from_= toll_free_num,
+                            to=number
+                        )
 
-        print(message.sid)
+            print(message.sid)
+    return "Success"
 
 
 #     return "Success"
