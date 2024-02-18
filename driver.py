@@ -25,15 +25,20 @@ df.fillna(0)
 @app.route('/', methods=['GET', 'POST'])
 def login():
     password = os.getenv("site_password")
+    admin_pass = os.getenv("admin_pass")
     error = None
     if request.method == 'POST':
+        if request.form['password'] == admin_pass:
+            return redirect(url_for('adminPanel'))
         if request.form['password'] != password:
             error = 'Invalid Credentials. Please try again.'
         else:
             return redirect(url_for('home'))
     return render_template('login.html', error=error)
 
-
+@app.route("/adminPanel")
+def adminPanel():
+    return render_template('admin_panel.html')
 @app.route("/home")
 def home():
     return render_template("index.html")
