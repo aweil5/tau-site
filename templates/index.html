@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+  <style>
+        @keyframes showAndHide {
+          0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }    
+    }
+
+    .hideOnStart{
+        opacity: 0;
+    }
+  </style>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -50,7 +61,7 @@
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
-        <h1>ATO Site</h1>
+        <h1>ATO</h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -73,9 +84,38 @@
           <div class="form-group">
             <!-- <input type="text-box" class="form-control" id="phone_text" aria-describedby="emailHelp" placeholder="Fuck Mike Conron"> -->
             <textarea class="form-control" id="text-body-string" rows="3" placeholder="Fuck Mike Conron"></textarea>
+
+            <h3>Select who to send message to:</h3>
+            <input type="checkbox" class="btn-check" id="btn-check-allPC" autocomplete="off" checked = "cheked">
+            <label class="btn btn-outline-primary" for="btn-check-allPC">All Pc's</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-flounder" autocomplete="off" >
+            <label class="btn btn-outline-primary" for="btn-check-flounder">Flounder</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-toads" autocomplete="off" >
+            <label class="btn btn-outline-primary" for="btn-check-toads">Toads</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-slugs" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-slugs">Slugs</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-jags" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-jags">Jags</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-cocks" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-cocks">Cocks</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-hogs" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-hogs">Hogs</label>
+
+            <input type="checkbox" class="btn-check" id="btn-check-ducks" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-ducks">Ducks</label>
+
             <button type="button" class="btn-get-started" onclick="sendText()">Send  Text</button>
+            
+            
+            
             <div id="text-success" class="hideOnStart">
-              <p style="color: greenyellow;">Zag: Text Sent!</p>
+              <p style="color: greenyellow;">Text Sent!</p>
           </div>
           </div>
 
