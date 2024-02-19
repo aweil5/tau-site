@@ -92,7 +92,7 @@
             <input type="checkbox" class="btn-check" id="btn-check-flounder" autocomplete="off" >
             <label class="btn btn-outline-primary" for="btn-check-flounder">Flounder</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-toads" autocomplete="off" >
+            <input type="checkbox" class="btn-check" id="btn-check-toads" name = 'btn-check-toads' autocomplete="off" >
             <label class="btn btn-outline-primary" for="btn-check-toads">Toads</label>
 
             <input type="checkbox" class="btn-check" id="btn-check-slugs" autocomplete="off">
@@ -110,7 +110,7 @@
             <input type="checkbox" class="btn-check" id="btn-check-ducks" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-ducks">Ducks</label>
 
-            <button type="button" class="btn-get-started" onclick="sendText()">Send  Text</button>
+            <button type="button" class="btn-get-started" onclick="test_func()">Send  Text</button>
             
             
             
@@ -189,6 +189,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+      function test_func() {
+        console.log(document.querySelector('input[name="btn-check-toads"]:checked').value)
+
+      }
       function sendText() {
         var text_body = document.getElementById('text-body-string').value;
         console.log(text_body)
@@ -210,6 +214,8 @@
                   }
               });
           }
+
+
     
     </script> 
 </body>
