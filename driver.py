@@ -43,9 +43,32 @@ def adminPanel():
 def home():
     return render_template("index.html")
 
+@app.route('/sendTextPc', methods = ['POST'])
+def sendTextPc():
+    text_body = request.form.get("text_body")
+    pc = str(request.form.get("pc"))
 
-@app.route('/sendText', methods=['POST'])
-def sendText():
+    print(text_body)
+    for index, row in df.iterrows():
+        
+        number = "+1" + str(int(row['Number']))
+        if(row['PC'] == pc):
+            if(number != "+1"):
+
+                message = client.messages \
+                            .create(
+                                body=str(text_body),
+                                from_= toll_free_num,
+                                to=number
+                            )
+
+                print(message.sid)
+    return "success"
+
+
+
+@app.route('/sendTextAll', methods=['POST'])
+def sendTextAll():
     text_body = request.form.get("text_body")
 
     print(text_body)

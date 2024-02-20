@@ -86,29 +86,33 @@
             <textarea class="form-control" id="text-body-string" rows="3" placeholder="Fuck Mike Conron"></textarea>
 
             <h3>Select who to send message to:</h3>
+            
             <input type="checkbox" class="btn-check" id="btn-check-allPC" autocomplete="off" checked = "cheked">
             <label class="btn btn-outline-primary" for="btn-check-allPC">All Pc's</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-flounder" autocomplete="off" >
+            <input type="checkbox" class="btn-check" id="btn-check-flounder" onclick="deselect()" autocomplete="off" >
             <label class="btn btn-outline-primary" for="btn-check-flounder">Flounder</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-toads" name = 'btn-check-toads' autocomplete="off" >
+            <input type="checkbox" class="btn-check" id="btn-check-toads" onclick="deselect()" name = 'btn-check-toads' autocomplete="off" >
             <label class="btn btn-outline-primary" for="btn-check-toads">Toads</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-slugs" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btn-check-slugs"onclick="deselect()" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-slugs">Slugs</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-jags" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btn-check-jags" onclick="deselect()" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-jags">Jags</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-cocks" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btn-check-cocks" onclick="deselect()" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-cocks">Cocks</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-hogs" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btn-check-hogs" onclick="deselect()" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-hogs">Hogs</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-ducks" autocomplete="off">
+            <input type="checkbox" class="btn-check" id="btn-check-ducks" onclick="deselect()" autocomplete="off">
             <label class="btn btn-outline-primary" for="btn-check-ducks">Ducks</label>
+
+            <br>
+            <br>
 
             <button type="button" class="btn-get-started" onclick="test_func()">Send  Text</button>
             
@@ -189,6 +193,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+      function deselect() {
+        document.getElementById("btn-check-allPC").checked = false;
+
+      }
       function test_func() {
         console.log(document.querySelector('input[name="btn-check-toads"]:checked').value)
 
@@ -198,8 +206,9 @@
         console.log(text_body)
 
 
+            if(document.getElementById('btn-check-allPC').checked){
               $.ajax({
-                  url: '/sendText',
+                  url: '/sendTextAll',
                   type: 'POST',
                   data: {"text_body": text_body},
                   success: function(response) {
@@ -213,7 +222,47 @@
                       console.log(error);
                   }
               });
-          }
+            }else{
+              if(document.getElementById('btn-check-flounder').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "flounder"},
+                    success: function(response) {
+                      console.log("Success"); 
+                      document.getElementById('text-success').innerHTML = "Text Sent Successfully";
+                      var s = document.getElementById("text-success").style;
+                      s.animationName = 'showAndHide';
+                      s.animationDuration = '3s';
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+                if(document.getElementById('btn-check-toad').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "toad"},
+                    success: function(response) {
+                      console.log("Success"); 
+                      document.getElementById('text-success').innerHTML = "Text Sent Successfully";
+                      var s = document.getElementById("text-success").style;
+                      s.animationName = 'showAndHide';
+                      s.animationDuration = '3s';
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+            }
+
+
+
+            }
+          
 
 
     
