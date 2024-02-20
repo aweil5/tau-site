@@ -90,8 +90,8 @@
             <input type="checkbox" class="btn-check" id="btn-check-allPC" autocomplete="off" checked = "cheked">
             <label class="btn btn-outline-primary" for="btn-check-allPC">All Pc's</label>
 
-            <input type="checkbox" class="btn-check" id="btn-check-flounder" onclick="deselect()" autocomplete="off" >
-            <label class="btn btn-outline-primary" for="btn-check-flounder">Flounder</label>
+            <input type="checkbox" class="btn-check" id="btn-check-flounders" onclick="deselect()" autocomplete="off" >
+            <label class="btn btn-outline-primary" for="btn-check-flounders">Flounder</label>
 
             <input type="checkbox" class="btn-check" id="btn-check-toads" onclick="deselect()" name = 'btn-check-toads' autocomplete="off" >
             <label class="btn btn-outline-primary" for="btn-check-toads">Toads</label>
@@ -223,40 +223,93 @@
                   }
               });
             }else{
-              if(document.getElementById('btn-check-flounder').checked){
+              if(document.getElementById('btn-check-flounders').checked){
                 $.ajax({
                     url: '/sendTextPc',
                     type: 'POST',
-                    data: {"text_body": text_body, "pc": "flounder"},
+                    data: {"text_body": text_body, "pc": "flounders"},
                     success: function(response) {
                       console.log("Success"); 
-                      document.getElementById('text-success').innerHTML = "Text Sent Successfully";
-                      var s = document.getElementById("text-success").style;
-                      s.animationName = 'showAndHide';
-                      s.animationDuration = '3s';
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
               }
-                if(document.getElementById('btn-check-toad').checked){
+                if(document.getElementById('btn-check-toads').checked){
                 $.ajax({
                     url: '/sendTextPc',
                     type: 'POST',
-                    data: {"text_body": text_body, "pc": "toad"},
+                    data: {"text_body": text_body, "pc": "toads"},
                     success: function(response) {
                       console.log("Success"); 
-                      document.getElementById('text-success').innerHTML = "Text Sent Successfully";
-                      var s = document.getElementById("text-success").style;
-                      s.animationName = 'showAndHide';
-                      s.animationDuration = '3s';
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
               }
+              if(document.getElementById('btn-check-slugs').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "slugs"},
+                    success: function(response) {
+                      console.log("Success"); 
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+
+              if(document.getElementById('btn-check-jags').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "jags"},
+                    success: function(response) {
+                      console.log("Success"); 
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+              if(document.getElementById('btn-check-cocks').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "cocks"},
+                    success: function(response) {
+                      console.log("Success"); 
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+
+              if(document.getElementById('btn-check-hogs').checked){
+                $.ajax({
+                    url: '/sendTextPc',
+                    type: 'POST',
+                    data: {"text_body": text_body, "pc": "hogs"},
+                    success: function(response) {
+                      console.log("Success"); 
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+              }
+
+              var s = document.getElementById("text-success").style;
+                      s.animationName = 'showAndHide';
+                      s.animationDuration = '3s';
+
+
+
             }
 
 
