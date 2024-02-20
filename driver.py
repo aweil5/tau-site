@@ -16,7 +16,7 @@ client = Client(account_sid, auth_token)
 toll_free_num = os.getenv('from-number')
 
 #Loading in all nums on Startup
-df = pd.read_csv("YoungerPC's - Sheet1.csv")
+df = pd.read_csv("FULL_NUMBER_SHEET - Sheet1.csv")
 df.fillna(0)
 
 
@@ -83,6 +83,11 @@ def sendTextAll():
                             from_= toll_free_num,
                             to=number
                         )
+            
+# USE THIS TO GET SID INFO AND ERROR HANDLE IF PERSON UNSUBSCRIBED
+            # call = client.calls.get("CA42ed11f93dc08b952027ffbc406d0868")
+            # print(call.to)
+
 
             print(message.sid)
     return "Success"
