@@ -55,14 +55,17 @@ def sendTextPc():
         if(row['PC'] == pc):
             if(number != "+1"):
 
-                message = client.messages \
-                            .create(
-                                body=str(text_body),
-                                from_= toll_free_num,
-                                to=number
-                            )
+                try:
+                    message = client.messages \
+                                .create(
+                                    body=str(text_body),
+                                    from_= toll_free_num,
+                                    to=number
+                                )
 
-                print(message.sid)
+                    print(message.sid)
+                except:
+                    print(f"Could not send message to {row['Name']}")
     return "success"
 
 
