@@ -16,7 +16,7 @@ client = Client(account_sid, auth_token)
 toll_free_num = os.getenv('from-number')
 
 #Loading in all nums on Startup
-df = pd.read_csv("FULL_NUMBER_SHEET - Sheet1.csv")
+df = pd.read_csv("tau-site\FULL_NUMBER_SHEET - Sheet1.csv")
 df.fillna(0)
 
 
@@ -80,12 +80,17 @@ def sendTextAll():
         number = "+1" + str(int(row['Number']))
         if(number != "+1"):
 
-            message = client.messages \
-                        .create(
-                            body=str(text_body),
-                            from_= toll_free_num,
-                            to=number
-                        )
+            try:
+                message = client.messages \
+                            .create(
+                                body=str(text_body),
+                                from_= toll_free_num,
+                                to=number
+                            )
+
+                print(message.sid)
+            except:
+                print(f"Could not send message to {row['Name']}")
             
 # USE THIS TO GET SID INFO AND ERROR HANDLE IF PERSON UNSUBSCRIBED
             # call = client.calls.get("CA42ed11f93dc08b952027ffbc406d0868")
